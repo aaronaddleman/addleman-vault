@@ -1,0 +1,6 @@
+source 'https://supermarket.chef.io'
+
+cookbook "selfsigned_certificate", git: "https://github.com/aaronaddleman/selfsigned_certificate.git"
+cookbook 'consul', '~> 2.3.0'
+
+metadata

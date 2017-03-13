@@ -1,0 +1,8 @@
+mkdir /tmp/ssl
+cd /tmp/ssl
+openssl genrsa -des3 -out /tmp/ssl/server.key 1024
+openssl req -new -key /tmp/ssl/server.key -out /tmp/ssl/server.csr
+cp /tmp/ssl/server.key /tmp/ssl/server.key.org
+openssl rsa -in /tmp/ssl/server.key.org -out /tmp/ssl/server.key
+openssl x509 -req -days 365 -in /tmp/ssl/server.csr -signkey /tmp/ssl/server.key -out /tmp/ssl/server.crt
+rm /tmp/ssl/server.key.org

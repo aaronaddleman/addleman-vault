@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[consul]
+      - recipe[vault-server::cert]
+      - recipe[vault-server::install-vault]
+    attributes:
+      aws_access_key: "<%= ENV['TF_VAR_aws_access_key'] %>"
+      aws_secret_key: "<%= ENV['TF_VAR_aws_secret_key'] %>"
