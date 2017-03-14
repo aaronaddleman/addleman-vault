@@ -10,18 +10,21 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-fce3c696",
+      "source_ami": "ami-b63769a1",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
       "ami_name": "addleman-vault-{{timestamp}}",
-      "subnet_id": "subnet-eeadc0a7"
+      "subnet_id": "subnet-eeadc0a7",
+      "vpc_id": "vpc-804bbde6",
+      "associate_public_ip_address": true,
+      "ssh_username": "ec2-user"
     }
   ],
 
   "provisioners": [
     {
       "type": "chef-solo",
-      "cookbook_paths": ["cookbooks"],
+      "cookbook_paths": ["vendor/cookbooks"],
       "run_list": [
         "recipe[consul]",
         "recipe[vault-server::cert]",
