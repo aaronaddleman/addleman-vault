@@ -4,9 +4,10 @@ listener "tcp" {
   tls_key_file="<%= @certpath %>/server.key"
 }
 
-backend "s3" {
-  bucket = "615197564783-vault"
-  region = "us-east-1"
+backend "consul" {
+  address = "127.0.0.1:8500"
+  scheme = "http"
+  path = "vault/"
 }
 
 disable_mlock=true

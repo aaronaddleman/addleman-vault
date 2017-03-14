@@ -35,6 +35,7 @@ directory '/etc/vault.d/agent' do
   owner 'vault'
   group 'vault'
   mode '0755'
+  recursive true
 end
 template '/etc/vault.d/agent/config.hcl' do
   source 'vault-config.hcl.erb'
@@ -42,6 +43,7 @@ template '/etc/vault.d/agent/config.hcl' do
   group 'vault'
   mode '0644'
   variables certpath: node['selfsigned_certificate']['destination']
+  notifies :restart, 'systemd_unit[vault.service]', :delayed
 end
 
 template '/etc/systemd/system/vault.service' do
@@ -53,4 +55,9 @@ template '/etc/systemd/system/vault.service' do
     :aws_access_key => node['aws_access_key'],
     :aws_secret_key => node['aws_secret_key']
   )
+end
+
+systemd_unit 'vault.service' do
+  enabled true
+  action [:enable, :start]
 end
