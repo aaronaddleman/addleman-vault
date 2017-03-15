@@ -90,8 +90,8 @@ data "aws_iam_policy_document" "vault-init-policy-data" {
 resource "aws_instance" "vault" {
   ami = "ami-973f9181"
   instance_type = "t2.micro"
-  availability_zone = "us-east-1"
   associate_public_ip_address = true
+  subnet_id = "subnet-eeadc0a7"
   vpc_security_group_ids = ["${aws_security_group.vault-sg.id}"]
   #userdata = "${file("userdata.sh")}"
   tags {
